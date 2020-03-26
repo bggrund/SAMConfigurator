@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ArrayOfField xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Field>
+    <FieldName>ID</FieldName>
+    <Description>Locaiton ID</Description>
+    <Type>Text</Type>
+    <PossibleValues />
+  </Field>
+  <Field>
+    <FieldName>Type</FieldName>
+    <Description>Transport Type (PUSH/PULL)</Description>
+    <Type>Combo</Type>
+    <PossibleValues>
+      <string>PUSH</string>
+      <string>PULL</string>
+    </PossibleValues>
+  </Field>
+  <Field>
+    <FieldName>Trigger</FieldName>
+    <Description>OPC Trigger Item</Description>
+    <Type>Text</Type>
+    <PossibleValues />
+  </Field>
+  <Field>
+    <FieldName>Trigger Value</FieldName>
+    <Description>Trigger Value</Description>
+    <Type>Text</Type>
+    <PossibleValues />
+  </Field>
+  <Field>
+    <FieldName>Ack</FieldName>
+    <Description>OPC Ack Item</Description>
+    <Type>Text</Type>
+    <PossibleValues />
+  </Field>
+  <Field>
+    <FieldName>Enabled</FieldName>
+    <Description>Record enabled</Description>
+    <Type>Bool</Type>
+    <PossibleValues />
+  </Field>
+</ArrayOfField>

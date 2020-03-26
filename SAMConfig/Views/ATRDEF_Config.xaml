@@ -1,0 +1,26 @@
+﻿<Window x:Class="SAMConfig.ATRDEF_Config"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SAMConfig"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing"
+        Title="ATRDEF Config" Height="400" Width="750"
+        WindowStartupLocation="CenterOwner">
+   <Grid>
+      <DataGrid Name="atrdefConfigGrid" ItemsSource="{Binding Fields}"
+                AutoGenerateColumns="False" CanUserSortColumns="False" SelectionUnit="Cell" CanUserResizeRows="False" CanUserAddRows="False"
+                DataGridCell.Selected="DataGridCell_Selected">
+         <DataGrid.RowHeaderTemplate>
+            <DataTemplate>
+               <StackPanel Orientation="Horizontal">
+                  <Button Click="Add_Click" Content="+" Width="15"/>
+                  <Button Click="Remove_Click" Content="-" Width="15"/>
+               </StackPanel>
+            </DataTemplate>
+         </DataGrid.RowHeaderTemplate>
+      </DataGrid>
+   </Grid>
+</Window>

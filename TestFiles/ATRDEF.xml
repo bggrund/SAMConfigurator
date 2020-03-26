@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<ArrayOfField xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Field>
+    <FieldName>ID</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Type</FieldName>
+    <Type>Combo</Type>
+    <ComboValues>
+      <string>PUSH</string>
+      <string>PULL</string>
+    </ComboValues>
+  </Field>
+  <Field>
+    <FieldName>Trigger</FieldName>
+    <Type>OPC Item</Type>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>TriggerMask</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>TrigLatchTime</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>TriggerDebounceTime</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>AckID</FieldName>
+    <Type>OPC Item</Type>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>AckMask</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>JobGenMax</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>JobAckID</FieldName>
+    <Type>OPC Item</Type>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>JobAckMask</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>PriLocCond2Go</FieldName>
+    <Type>OPC Item</Type>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>GoMask</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>GoValue</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>SecLoc</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>SecLocDynamic</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>SecLocCond2Go</FieldName>
+    <Type>OPC Item</Type>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>GoMask</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>GoValue</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>ChkGrpAvail</FieldName>
+    <Type>Bool</Type>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>ChkSA</FieldName>
+    <Type>Bool</Type>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Enabled</FieldName>
+    <Type>Bool</Type>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Beacon</FieldName>
+    <ComboValues />
+  </Field>
+</ArrayOfField>

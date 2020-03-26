@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<ArrayOfField xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Field>
+    <FieldName>ID</FieldName>
+    <Description>This field is the numeric descriptor for the location, the virtual location ID.</Description>
+    <Type>Text</Type>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>LocName</FieldName>
+    <Description>This is a character string (10 characters max) description of the location</Description>
+    <Type>Text</Type>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>LocType</FieldName>
+    <Description>1=Dispatch
+10=AutoTransport</Description>
+    <Type>Combo</Type>
+    <ComboValues>
+      <string>1</string>
+      <string>10</string>
+      <string>11</string>
+      <string>12</string>
+      <string>20</string>
+      <string>21</string>
+      <string>30</string>
+      <string>32</string>
+      <string>33</string>
+    </ComboValues>
+  </Field>
+  <Field>
+    <FieldName>Oper</FieldName>
+    <Description>This parameter indicates the operation(s) possible at that location.</Description>
+    <Type>Combo</Type>
+    <ComboValues>
+      <string>0</string>
+      <string>1</string>
+      <string>2</string>
+      <string>3</string>
+    </ComboValues>
+  </Field>
+  <Field>
+    <FieldName>Qsize</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Spare0</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>TimeToWait</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>MaxToPark</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Group</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Height</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Length</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Spacing</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Levels</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Zone</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>VB?</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>ForkSplit</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>InvBin</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>LaneMax</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Product</FieldName>
+    <Description />
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Prodline</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>OPCInputID</FieldName>
+    <Type>OPC Item</Type>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>OPCInputMask</FieldName>
+    <Description />
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>GoValue</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>OPCOutputID</FieldName>
+    <Type>OPC Item</Type>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>OPCOutputMask</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Option1</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Allowed</FieldName>
+    <Type>Bool</Type>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>OPCOutput_Data</FieldName>
+    <Type>OPC Item</Type>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>OPCOutput_Len</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>OPCTag3</FieldName>
+    <Type>OPC Item</Type>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>OPCTag4</FieldName>
+    <Type>OPC Item</Type>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Spare1</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Spare2</FieldName>
+    <ComboValues />
+  </Field>
+  <Field>
+    <FieldName>Enabled</FieldName>
+    <Type>Bool</Type>
+    <ComboValues />
+  </Field>
+</ArrayOfField>

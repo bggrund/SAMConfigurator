@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<ArrayOfField xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Field>
+    <FieldName>ID</FieldName>
+    <Description>Locaiton ID</Description>
+    <Type>Text</Type>
+    <PossibleValues />
+  </Field>
+  <Field>
+    <FieldName>LocName</FieldName>
+    <Description>Location Name</Description>
+    <Type>Text</Type>
+    <PossibleValues />
+  </Field>
+  <Field>
+    <FieldName>LocType</FieldName>
+    <Description>Location Type</Description>
+    <Type>Combo</Type>
+    <PossibleValues>
+      <string>1</string>
+      <string>2</string>
+      <string>3</string>
+    </PossibleValues>
+  </Field>
+  <Field>
+    <FieldName>QSize</FieldName>
+    <Description>Queue Size</Description>
+    <Type>Text</Type>
+    <PossibleValues />
+  </Field>
+  <Field>
+    <FieldName>Group</FieldName>
+    <Description>Group</Description>
+    <Type>Combo</Type>
+    <PossibleValues>
+      <string>a</string>
+      <string>b</string>
+      <string>c</string>
+    </PossibleValues>
+  </Field>
+  <Field>
+    <FieldName>Enabled</FieldName>
+    <Description>Location Enabled</Description>
+    <Type>Bool</Type>
+    <PossibleValues>
+      <string />
+    </PossibleValues>
+  </Field>
+  <Field>
+    <FieldName>TestBool</FieldName>
+    <Description>This is a test bool
+
+Also
+
+Here is a description
+
+With multiple lines</Description>
+    <Type>Combo</Type>
+    <PossibleValues>
+      <string>0</string>
+      <string>1</string>
+    </PossibleValues>
+  </Field>
+</ArrayOfField>

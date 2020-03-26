@@ -1,0 +1,609 @@
+﻿<Window x:Class="SAMConfig.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SAMConfig"
+        mc:Ignorable="d"
+        Title="SAM Configurator" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+   <DockPanel Margin="0">
+      <Menu DockPanel.Dock="Top">
+         <MenuItem Header="File">
+            <MenuItem Header="Save" Click="Save_Click"/>
+            <MenuItem Header="Save All" Click="SaveAll_Click"/>
+         </MenuItem>
+         <MenuItem Header="Config">
+            <MenuItem Header="PNDDEF" Click="PNDDEFConfig_Click"/>
+            <MenuItem Header="ATRDEF" Click="ATRDEFConfig_Click"/>
+         </MenuItem>
+      </Menu>
+      <TabControl Name="tabControl" Margin="5">
+         <TabItem Header="PNDDEF.DAT">
+            <DataGrid Name="pnddefGrid" DataContext="{Binding PNDDEF_ViewModel}" ItemsSource="{Binding Data}" SelectedCellsChanged="DataGrid_SelectedCellsChanged"
+                      AutoGenerateColumns="False" SelectionUnit="Cell" CanUserResizeRows="False" CanUserAddRows="False" CanUserReorderColumns="False"
+                      AddingNewItem="AddingNewItem" DataGridCell.Selected="DataGridCell_Selected" CellEditEnding="PNDCellEditEnding">
+               <DataGrid.RowHeaderTemplate>
+               <DataTemplate>
+                     <StackPanel Orientation="Horizontal">
+                        <Button Click="Duplicate_Click" Content="Duplicate" Padding="3,0"/>
+                        <Button Click="Add_Click" Content="+" Width="15"/>
+                        <Button Click="Remove_Click" Content="-" Width="15"/>
+                     </StackPanel>
+                  </DataTemplate>
+               </DataGrid.RowHeaderTemplate>
+            </DataGrid>
+         </TabItem>
+         <TabItem Header="ATRDEF.DAT">
+            <DataGrid Name="atrdefGrid" DataContext="{Binding ATRDEF_ViewModel}" ItemsSource="{Binding Data}" SelectedCellsChanged="DataGrid_SelectedCellsChanged"
+                      AutoGenerateColumns="False" SelectionUnit="Cell" CanUserResizeRows="False" CanUserAddRows="False" CanUserReorderColumns="False"
+                      AddingNewItem="AddingNewItem" DataGridCell.Selected="DataGridCell_Selected" CellEditEnding="CellEditEnding" Loaded="DataGrid_Loaded">
+               <DataGrid.RowValidationRules>
+                  <local:ATRValidationRules ValidationStep="CommittedValue"/>
+               </DataGrid.RowValidationRules>
+               <DataGrid.RowValidationErrorTemplate>
+                  <ControlTemplate>
+                     <TextBlock Text="  ! " Foreground="Red" ToolTip="{Binding (Validation.Errors).CurrentItem.ErrorContent, RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                  </ControlTemplate>
+               </DataGrid.RowValidationErrorTemplate>
+               <DataGrid.RowHeaderTemplate>
+                  <DataTemplate>
+                     <StackPanel Orientation="Horizontal">
+                        <Button Click="Duplicate_Click" Content="Duplicate" Padding="3,0"/>
+                        <Button Click="Add_Click" Content="+" Width="15"/>
+                        <Button Click="Remove_Click" Content="-" Width="15"/>
+                     </StackPanel>
+                  </DataTemplate>
+               </DataGrid.RowHeaderTemplate>
+            </DataGrid>
+         </TabItem>
+         <TabItem Header="PCKLST.DAT">
+            <DataGrid Name="pcklstGrid" DataContext="{Binding PCKLST_ViewModel}" ItemsSource="{Binding Data}" SelectedCellsChanged="DataGrid_SelectedCellsChanged"
+                      AutoGenerateColumns="False" SelectionUnit="Cell" CanUserResizeRows="False" CanUserAddRows="False" CanUserReorderColumns="False"
+                      AddingNewItem="AddingNewItem" DataGridCell.Selected="DataGridCell_Selected" CellEditEnding="CellEditEnding" Loaded="DataGrid_Loaded">
+               <DataGrid.RowValidationRules>
+                  <local:PCKPRKValidationRules ValidationStep="CommittedValue"/>
+               </DataGrid.RowValidationRules>
+               <DataGrid.RowValidationErrorTemplate>
+                  <ControlTemplate>
+                     <TextBlock Text="  ! " Foreground="Red" ToolTip="{Binding (Validation.Errors).CurrentItem.ErrorContent, RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                  </ControlTemplate>
+               </DataGrid.RowValidationErrorTemplate>
+               <DataGrid.RowHeaderTemplate>
+                  <DataTemplate>
+                     <StackPanel Orientation="Horizontal">
+                        <Button Click="Duplicate_Click" Content="Duplicate" Padding="3,0"/>
+                        <Button Click="Add_Click" Content="+" Width="15"/>
+                        <Button Click="Remove_Click" Content="-" Width="15"/>
+                     </StackPanel>
+                  </DataTemplate>
+               </DataGrid.RowHeaderTemplate>
+               <DataGrid.Columns>
+                  <DataGridTextColumn Binding="{Binding [0], UpdateSourceTrigger=PropertyChanged}">
+                     <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                           <TextBlock Text="{Binding DataContext.Headers[0], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                     </DataGridTextColumn.HeaderTemplate>
+                     <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                           <Setter Property="ToolTip" Value="{Binding DataContext.Descriptions[0],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                     </DataGridTextColumn.HeaderStyle>
+                  </DataGridTextColumn>
+                  <DataGridTextColumn Binding="{Binding [1], UpdateSourceTrigger=PropertyChanged}">
+                     <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                           <TextBlock Text="{Binding DataContext.Headers[1], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                     </DataGridTextColumn.HeaderTemplate>
+                     <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                           <Setter Property="ToolTip" Value="{Binding DataContext.Descriptions[1],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                     </DataGridTextColumn.HeaderStyle>
+                  </DataGridTextColumn>
+               </DataGrid.Columns>
+            </DataGrid>
+         </TabItem>
+         <TabItem Header="PRKLST.DAT">
+            <DataGrid Name="prklstGrid" DataContext="{Binding PRKLST_ViewModel}" ItemsSource="{Binding Data}" SelectedCellsChanged="DataGrid_SelectedCellsChanged"
+                      AutoGenerateColumns="False" SelectionUnit="Cell" CanUserResizeRows="False" CanUserAddRows="False" CanUserReorderColumns="False"
+                      AddingNewItem="AddingNewItem" DataGridCell.Selected="DataGridCell_Selected" CellEditEnding="CellEditEnding" Loaded="DataGrid_Loaded">
+               <DataGrid.RowValidationRules>
+                  <local:PCKPRKValidationRules ValidationStep="CommittedValue"/>
+               </DataGrid.RowValidationRules>
+               <DataGrid.RowValidationErrorTemplate>
+                  <ControlTemplate>
+                     <TextBlock Text="  ! " Foreground="Red" ToolTip="{Binding (Validation.Errors).CurrentItem.ErrorContent, RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                  </ControlTemplate>
+               </DataGrid.RowValidationErrorTemplate>
+               <DataGrid.RowHeaderTemplate>
+                  <DataTemplate>
+                     <StackPanel Orientation="Horizontal">
+                        <Button Click="Duplicate_Click" Content="Duplicate" Padding="3,0"/>
+                        <Button Click="Add_Click" Content="+" Width="15"/>
+                        <Button Click="Remove_Click" Content="-" Width="15"/>
+                     </StackPanel>
+                  </DataTemplate>
+               </DataGrid.RowHeaderTemplate>
+               <DataGrid.Columns>
+                  <DataGridTextColumn Binding="{Binding [0], UpdateSourceTrigger=PropertyChanged}">
+                     <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                           <TextBlock Text="{Binding DataContext.Headers[0], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                     </DataGridTextColumn.HeaderTemplate>
+                     <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                           <Setter Property="ToolTip" Value="{Binding DataContext.Descriptions[0],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                     </DataGridTextColumn.HeaderStyle>
+                  </DataGridTextColumn>
+                  <DataGridTextColumn Binding="{Binding [1], UpdateSourceTrigger=PropertyChanged}">
+                     <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                           <TextBlock Text="{Binding DataContext.Headers[1], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                     </DataGridTextColumn.HeaderTemplate>
+                     <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                           <Setter Property="ToolTip" Value="{Binding DataContext.Descriptions[1],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                     </DataGridTextColumn.HeaderStyle>
+                  </DataGridTextColumn>
+               </DataGrid.Columns>
+            </DataGrid>
+         </TabItem>
+         <TabItem Header="BMPAGV.DAT">
+            <DataGrid Name="bmpagvGrid" DataContext="{Binding BMPAGV_ViewModel}" ItemsSource="{Binding Data}" SelectedCellsChanged="DataGrid_SelectedCellsChanged"
+                      AutoGenerateColumns="False" SelectionUnit="Cell" CanUserResizeRows="False" CanUserAddRows="False" CanUserReorderColumns="False"
+                      AddingNewItem="AddingNewItem" DataGridCell.Selected="DataGridCell_Selected" CellEditEnding="CellEditEnding" Loaded="DataGrid_Loaded">
+               <DataGrid.RowValidationRules>
+                  <local:BMPCLSValidationRules ValidationStep="CommittedValue"/>
+               </DataGrid.RowValidationRules>
+               <DataGrid.RowValidationErrorTemplate>
+                  <ControlTemplate>
+                     <TextBlock Text="  ! " Foreground="Red" ToolTip="{Binding (Validation.Errors).CurrentItem.ErrorContent, RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                  </ControlTemplate>
+               </DataGrid.RowValidationErrorTemplate>
+               <DataGrid.RowHeaderTemplate>
+                  <DataTemplate>
+                     <StackPanel Orientation="Horizontal">
+                        <Button Click="Duplicate_Click" Content="Duplicate" Padding="3,0"/>
+                        <Button Click="Add_Click" Content="+" Width="15"/>
+                        <Button Click="Remove_Click" Content="-" Width="15"/>
+                     </StackPanel>
+                  </DataTemplate>
+               </DataGrid.RowHeaderTemplate>
+               <DataGrid.Columns>
+                  <DataGridTextColumn Binding="{Binding [0], UpdateSourceTrigger=PropertyChanged}">
+                     <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                           <TextBlock Text="{Binding DataContext.Headers[0], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                     </DataGridTextColumn.HeaderTemplate>
+                     <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                           <Setter Property="ToolTip" Value="{Binding DataContext.Descriptions[0],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                     </DataGridTextColumn.HeaderStyle>
+                  </DataGridTextColumn>
+                  <DataGridTextColumn Binding="{Binding [1], UpdateSourceTrigger=PropertyChanged}">
+                     <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                           <TextBlock Text="{Binding DataContext.Headers[1], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                     </DataGridTextColumn.HeaderTemplate>
+                     <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                           <Setter Property="ToolTip" Value="{Binding DataContext.Descriptions[1],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                     </DataGridTextColumn.HeaderStyle>
+                  </DataGridTextColumn>
+                  <DataGridTextColumn Binding="{Binding [2], UpdateSourceTrigger=PropertyChanged}">
+                     <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                           <TextBlock Text="{Binding DataContext.Headers[2], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                     </DataGridTextColumn.HeaderTemplate>
+                     <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                           <Setter Property="ToolTip" Value="{Binding DataContext.Descriptions[2],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                     </DataGridTextColumn.HeaderStyle>
+                  </DataGridTextColumn>
+                  <DataGridTextColumn Binding="{Binding [3], UpdateSourceTrigger=PropertyChanged}">
+                     <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                           <TextBlock Text="{Binding DataContext.Headers[3], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                     </DataGridTextColumn.HeaderTemplate>
+                     <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                           <Setter Property="ToolTip" Value="{Binding DataContext.Descriptions[3],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                     </DataGridTextColumn.HeaderStyle>
+                  </DataGridTextColumn>
+                  <DataGridTextColumn Binding="{Binding [4], UpdateSourceTrigger=PropertyChanged}">
+                     <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                           <TextBlock Text="{Binding DataContext.Headers[4], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                     </DataGridTextColumn.HeaderTemplate>
+                     <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                           <Setter Property="ToolTip" Value="{Binding DataContext.Descriptions[4],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                     </DataGridTextColumn.HeaderStyle>
+                  </DataGridTextColumn>
+                  <DataGridTextColumn Binding="{Binding [5], UpdateSourceTrigger=PropertyChanged}">
+                     <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                           <TextBlock Text="{Binding DataContext.Headers[5], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                     </DataGridTextColumn.HeaderTemplate>
+                     <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                           <Setter Property="ToolTip" Value="{Binding DataContext.Descriptions[5],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                     </DataGridTextColumn.HeaderStyle>
+                  </DataGridTextColumn>
+                  <DataGridTextColumn Binding="{Binding [6], UpdateSourceTrigger=PropertyChanged}">
+                     <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                           <TextBlock Text="{Binding DataContext.Headers[6], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                     </DataGridTextColumn.HeaderTemplate>
+                     <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                           <Setter Property="ToolTip" Value="{Binding DataContext.Descriptions[6],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                     </DataGridTextColumn.HeaderStyle>
+                  </DataGridTextColumn>
+               </DataGrid.Columns>
+            </DataGrid>
+         </TabItem>
+         <TabItem Header="CLSAGV.DAT">
+            <DataGrid Name="clsagvGrid" DataContext="{Binding CLSAGV_ViewModel}" ItemsSource="{Binding Data}" SelectedCellsChanged="DataGrid_SelectedCellsChanged"
+                      AutoGenerateColumns="False" SelectionUnit="Cell" CanUserResizeRows="False" CanUserAddRows="False" CanUserReorderColumns="False"
+                      AddingNewItem="AddingNewItem" DataGridCell.Selected="DataGridCell_Selected" CellEditEnding="CellEditEnding" Loaded="DataGrid_Loaded">
+               <DataGrid.RowValidationRules>
+                  <local:BMPCLSValidationRules ValidationStep="CommittedValue"/>
+               </DataGrid.RowValidationRules>
+               <DataGrid.RowValidationErrorTemplate>
+                  <ControlTemplate>
+                     <TextBlock Text="  ! " Foreground="Red" ToolTip="{Binding (Validation.Errors).CurrentItem.ErrorContent, RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                  </ControlTemplate>
+               </DataGrid.RowValidationErrorTemplate>
+               <DataGrid.RowHeaderTemplate>
+                  <DataTemplate>
+                     <StackPanel Orientation="Horizontal">
+                        <Button Click="Duplicate_Click" Content="Duplicate" Padding="3,0"/>
+                        <Button Click="Add_Click" Content="+" Width="15"/>
+                        <Button Click="Remove_Click" Content="-" Width="15"/>
+                     </StackPanel>
+                  </DataTemplate>
+               </DataGrid.RowHeaderTemplate>
+               <DataGrid.Columns>
+                  <DataGridTextColumn Binding="{Binding [0], UpdateSourceTrigger=PropertyChanged}">
+                     <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                           <TextBlock Text="{Binding DataContext.Headers[0], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                     </DataGridTextColumn.HeaderTemplate>
+                     <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                           <Setter Property="ToolTip" Value="{Binding DataContext.Descriptions[0],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                     </DataGridTextColumn.HeaderStyle>
+                  </DataGridTextColumn>
+                  <DataGridTextColumn Binding="{Binding [1], UpdateSourceTrigger=PropertyChanged}">
+                     <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                           <TextBlock Text="{Binding DataContext.Headers[1], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                     </DataGridTextColumn.HeaderTemplate>
+                     <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                           <Setter Property="ToolTip" Value="{Binding DataContext.Descriptions[1],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                     </DataGridTextColumn.HeaderStyle>
+                  </DataGridTextColumn>
+                  <DataGridTextColumn Binding="{Binding [2], UpdateSourceTrigger=PropertyChanged}">
+                     <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                           <TextBlock Text="{Binding DataContext.Headers[2], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                     </DataGridTextColumn.HeaderTemplate>
+                     <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                           <Setter Property="ToolTip" Value="{Binding DataContext.Descriptions[2],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                     </DataGridTextColumn.HeaderStyle>
+                  </DataGridTextColumn>
+                  <DataGridTextColumn Binding="{Binding [3], UpdateSourceTrigger=PropertyChanged}">
+                     <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                           <TextBlock Text="{Binding DataContext.Headers[3], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                     </DataGridTextColumn.HeaderTemplate>
+                     <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                           <Setter Property="ToolTip" Value="{Binding DataContext.Descriptions[3],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                     </DataGridTextColumn.HeaderStyle>
+                  </DataGridTextColumn>
+                  <DataGridTextColumn Binding="{Binding [4], UpdateSourceTrigger=PropertyChanged}">
+                     <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                           <TextBlock Text="{Binding DataContext.Headers[4], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                     </DataGridTextColumn.HeaderTemplate>
+                     <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                           <Setter Property="ToolTip" Value="{Binding DataContext.Descriptions[4],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </Style>
+                     </DataGridTextColumn.HeaderStyle>
+                  </DataGridTextColumn>
+               </DataGrid.Columns>
+            </DataGrid>
+         </TabItem>
+         <TabItem Header="OPCMgr.xml">
+            <DockPanel>
+               <Expander DockPanel.Dock="Top" IsExpanded="True" Header="Groups">
+                  <DataGrid Name="opcmgrGroupGrid" DataContext="{Binding OPCMgr_ViewModel}" ItemsSource="{Binding Groups}"
+                            AutoGenerateColumns="False" SelectionUnit="Cell" CanUserResizeColumns="False" CanUserAddRows="False"
+                            AddingNewItem="AddingNewItem" DataGridCell.Selected="DataGridCell_Selected">
+                     <DataGrid.RowHeaderTemplate>
+                        <DataTemplate>
+                           <StackPanel Orientation="Horizontal">
+                              <Button Click="Duplicate_Click" Content="Duplicate" Padding="3,0"/>
+                              <Button Click="Add_Click" Content="+" Width="15"/>
+                              <Button Click="Remove_Click" Content="-" Width="15"/>
+                           </StackPanel>
+                        </DataTemplate>
+                     </DataGrid.RowHeaderTemplate>
+                     <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                           <DataGridTextColumn.HeaderTemplate>
+                              <DataTemplate>
+                                 <TextBlock Text="{Binding DataContext.GroupHeaders[0], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </DataTemplate>
+                           </DataGridTextColumn.HeaderTemplate>
+                           <DataGridTextColumn.HeaderStyle>
+                              <Style TargetType="DataGridColumnHeader">
+                                 <Setter Property="ToolTip" Value="{Binding DataContext.GroupDescriptions[0],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </Style>
+                           </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                        <DataGridCheckBoxColumn Binding="{Binding write_together, UpdateSourceTrigger=PropertyChanged}" CellStyle="{StaticResource DataGridCellStyle}">
+                           <DataGridCheckBoxColumn.HeaderTemplate>
+                              <DataTemplate>
+                                 <TextBlock Text="{Binding DataContext.GroupHeaders[1], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </DataTemplate>
+                           </DataGridCheckBoxColumn.HeaderTemplate>
+                           <DataGridCheckBoxColumn.HeaderStyle>
+                              <Style TargetType="DataGridColumnHeader">
+                                 <Setter Property="ToolTip" Value="{Binding DataContext.GroupDescriptions[1],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </Style>
+                           </DataGridCheckBoxColumn.HeaderStyle>
+                        </DataGridCheckBoxColumn>
+                        <DataGridTextColumn Binding="{Binding update_rate, UpdateSourceTrigger=PropertyChanged}">
+                           <DataGridTextColumn.HeaderTemplate>
+                              <DataTemplate>
+                                 <TextBlock Text="{Binding DataContext.GroupHeaders[2], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </DataTemplate>
+                           </DataGridTextColumn.HeaderTemplate>
+                           <DataGridTextColumn.HeaderStyle>
+                              <Style TargetType="DataGridColumnHeader">
+                                 <Setter Property="ToolTip" Value="{Binding DataContext.GroupDescriptions[2],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </Style>
+                           </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding trace_mask, UpdateSourceTrigger=PropertyChanged}">
+                           <DataGridTextColumn.HeaderTemplate>
+                              <DataTemplate>
+                                 <TextBlock Text="{Binding DataContext.GroupHeaders[3], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </DataTemplate>
+                           </DataGridTextColumn.HeaderTemplate>
+                           <DataGridTextColumn.HeaderStyle>
+                              <Style TargetType="DataGridColumnHeader">
+                                 <Setter Property="ToolTip" Value="{Binding DataContext.GroupDescriptions[3],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </Style>
+                           </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                        <DataGridCheckBoxColumn Binding="{Binding active, UpdateSourceTrigger=PropertyChanged}" CellStyle="{StaticResource DataGridCellStyle}">
+                           <DataGridCheckBoxColumn.HeaderTemplate>
+                              <DataTemplate>
+                                 <TextBlock Text="{Binding DataContext.GroupHeaders[4], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </DataTemplate>
+                           </DataGridCheckBoxColumn.HeaderTemplate>
+                           <DataGridCheckBoxColumn.HeaderStyle>
+                              <Style TargetType="DataGridColumnHeader">
+                                 <Setter Property="ToolTip" Value="{Binding DataContext.GroupDescriptions[4],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </Style>
+                           </DataGridCheckBoxColumn.HeaderStyle>
+                        </DataGridCheckBoxColumn>
+                     </DataGrid.Columns>
+                  </DataGrid>
+               </Expander>
+               <Expander Header="Items" IsExpanded="True">
+                  <DataGrid Name="opcmgrItemGrid" DataContext="{Binding OPCMgr_ViewModel}" ItemsSource="{Binding Items}"
+                            AutoGenerateColumns="False" SelectionUnit="Cell" CanUserResizeRows="False" CanUserAddRows="False"
+                            AddingNewItem="AddingNewItem" DataGridCell.Selected="DataGridCell_Selected">
+                     <DataGrid.RowHeaderTemplate>
+                        <DataTemplate>
+                           <StackPanel Orientation="Horizontal">
+                              <Button Click="Duplicate_Click" Content="Duplicate" Padding="3,0"/>
+                              <Button Click="Add_Click" Content="+" Width="15"/>
+                              <Button Click="Remove_Click" Content="-" Width="15"/>
+                           </StackPanel>
+                        </DataTemplate>
+                     </DataGrid.RowHeaderTemplate>
+                     <DataGrid.Columns>
+                        <DataGridComboBoxColumn SelectedValueBinding="{Binding group, UpdateSourceTrigger=PropertyChanged}" 
+                                                CellStyle="{StaticResource DataGridCellStyle}">
+                           <DataGridComboBoxColumn.EditingElementStyle>
+                              <Style TargetType="ComboBox">
+                                 <Setter Property="ItemsSource" Value="{Binding DataContext.GroupNames, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                              </Style>
+                           </DataGridComboBoxColumn.EditingElementStyle>
+                           <DataGridComboBoxColumn.ElementStyle>
+                              <Style TargetType="ComboBox">
+                                 <Setter Property="ItemsSource" Value="{Binding DataContext.GroupNames, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                              </Style>
+                           </DataGridComboBoxColumn.ElementStyle>
+                           <DataGridComboBoxColumn.HeaderTemplate>
+                              <DataTemplate>
+                                 <TextBlock Text="{Binding DataContext.ItemHeaders[0], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </DataTemplate>
+                           </DataGridComboBoxColumn.HeaderTemplate>
+                           <DataGridComboBoxColumn.HeaderStyle>
+                              <Style TargetType="DataGridColumnHeader">
+                                 <Setter Property="ToolTip" Value="{Binding DataContext.ItemDescriptions[0],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </Style>
+                           </DataGridComboBoxColumn.HeaderStyle>
+                        </DataGridComboBoxColumn>
+                        <DataGridTextColumn Binding="{Binding access_path, UpdateSourceTrigger=PropertyChanged}">
+                           <DataGridTextColumn.HeaderTemplate>
+                              <DataTemplate>
+                                 <TextBlock Text="{Binding DataContext.ItemHeaders[1], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </DataTemplate>
+                           </DataGridTextColumn.HeaderTemplate>
+                           <DataGridTextColumn.HeaderStyle>
+                              <Style TargetType="DataGridColumnHeader">
+                                 <Setter Property="ToolTip" Value="{Binding DataContext.ItemDescriptions[1],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </Style>
+                           </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding id, UpdateSourceTrigger=PropertyChanged}">
+                           <DataGridTextColumn.HeaderTemplate>
+                              <DataTemplate>
+                                 <TextBlock Text="{Binding DataContext.ItemHeaders[2], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </DataTemplate>
+                           </DataGridTextColumn.HeaderTemplate>
+                           <DataGridTextColumn.HeaderStyle>
+                              <Style TargetType="DataGridColumnHeader">
+                                 <Setter Property="ToolTip" Value="{Binding DataContext.ItemDescriptions[2],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </Style>
+                           </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding name, UpdateSourceTrigger=PropertyChanged}">
+                           <DataGridTextColumn.HeaderTemplate>
+                              <DataTemplate>
+                                 <TextBlock Text="{Binding DataContext.ItemHeaders[3], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </DataTemplate>
+                           </DataGridTextColumn.HeaderTemplate>
+                           <DataGridTextColumn.HeaderStyle>
+                              <Style TargetType="DataGridColumnHeader">
+                                 <Setter Property="ToolTip" Value="{Binding DataContext.ItemDescriptions[3],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </Style>
+                           </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                        <DataGridComboBoxColumn SelectedItemBinding="{Binding type, UpdateSourceTrigger=PropertyChanged}" CellStyle="{StaticResource DataGridCellStyle}">
+                           <DataGridComboBoxColumn.EditingElementStyle>
+                              <Style TargetType="ComboBox">
+                                 <Setter Property="ItemsSource" Value="{Binding DataContext.TypeValues, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                              </Style>
+                           </DataGridComboBoxColumn.EditingElementStyle>
+                           <DataGridComboBoxColumn.ElementStyle>
+                              <Style TargetType="ComboBox">
+                                 <Setter Property="ItemsSource" Value="{Binding DataContext.TypeValues, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                              </Style>
+                           </DataGridComboBoxColumn.ElementStyle>
+                           <DataGridComboBoxColumn.HeaderTemplate>
+                              <DataTemplate>
+                                 <TextBlock Text="{Binding DataContext.ItemHeaders[4], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </DataTemplate>
+                           </DataGridComboBoxColumn.HeaderTemplate>
+                           <DataGridComboBoxColumn.HeaderStyle>
+                              <Style TargetType="DataGridColumnHeader">
+                                 <Setter Property="ToolTip" Value="{Binding DataContext.ItemDescriptions[4],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </Style>
+                           </DataGridComboBoxColumn.HeaderStyle>
+                        </DataGridComboBoxColumn>
+                        <DataGridComboBoxColumn SelectedItemBinding="{Binding access, UpdateSourceTrigger=PropertyChanged}" CellStyle="{StaticResource DataGridCellStyle}">
+                           <DataGridComboBoxColumn.EditingElementStyle>
+                              <Style TargetType="ComboBox">
+                                 <Setter Property="ItemsSource" Value="{Binding DataContext.AccessValues, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                              </Style>
+                           </DataGridComboBoxColumn.EditingElementStyle>
+                           <DataGridComboBoxColumn.ElementStyle>
+                              <Style TargetType="ComboBox">
+                                 <Setter Property="ItemsSource" Value="{Binding DataContext.AccessValues, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                              </Style>
+                           </DataGridComboBoxColumn.ElementStyle>
+                           <DataGridComboBoxColumn.HeaderTemplate>
+                              <DataTemplate>
+                                 <TextBlock Text="{Binding DataContext.ItemHeaders[5], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </DataTemplate>
+                           </DataGridComboBoxColumn.HeaderTemplate>
+                           <DataGridComboBoxColumn.HeaderStyle>
+                              <Style TargetType="DataGridColumnHeader">
+                                 <Setter Property="ToolTip" Value="{Binding DataContext.ItemDescriptions[5],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </Style>
+                           </DataGridComboBoxColumn.HeaderStyle>
+                        </DataGridComboBoxColumn>
+                        <DataGridTextColumn Binding="{Binding code, UpdateSourceTrigger=PropertyChanged}">
+                           <DataGridTextColumn.HeaderTemplate>
+                              <DataTemplate>
+                                 <TextBlock Text="{Binding DataContext.ItemHeaders[6], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </DataTemplate>
+                           </DataGridTextColumn.HeaderTemplate>
+                           <DataGridTextColumn.HeaderStyle>
+                              <Style TargetType="DataGridColumnHeader">
+                                 <Setter Property="ToolTip" Value="{Binding DataContext.ItemDescriptions[6],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </Style>
+                           </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                        <DataGridCheckBoxColumn Binding="{Binding active, UpdateSourceTrigger=PropertyChanged}" CellStyle="{StaticResource DataGridCellStyle}">
+                           <DataGridCheckBoxColumn.HeaderTemplate>
+                              <DataTemplate>
+                                 <TextBlock Text="{Binding DataContext.ItemHeaders[7], RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </DataTemplate>
+                           </DataGridCheckBoxColumn.HeaderTemplate>
+                           <DataGridCheckBoxColumn.HeaderStyle>
+                              <Style TargetType="DataGridColumnHeader">
+                                 <Setter Property="ToolTip" Value="{Binding DataContext.ItemDescriptions[7],
+                                   RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                              </Style>
+                           </DataGridCheckBoxColumn.HeaderStyle>
+                        </DataGridCheckBoxColumn>
+                     </DataGrid.Columns>
+                  </DataGrid>
+               </Expander>
+            </DockPanel>
+         </TabItem>
+      </TabControl>
+   </DockPanel>
+</Window>
